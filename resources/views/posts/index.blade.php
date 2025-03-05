@@ -10,12 +10,17 @@
         
                     <h2 class="text-xl font-bold text-gray-800 pb-2">{{ $post->title }}</h2>
     
-                    <p class="pb-2">{{ $post->content }}</p>
+                    <p class="pb-2 truncate">{{ $post->content }}</p>
         
                     <div class="mb-2">
                         @foreach ($post->categories as $category)
                             <span class="bg-blue-500 text-white px-2 py-1 rounded text-sm">{{ $category->name }}</span>
                         @endforeach
+                    </div>
+
+                    <div class="text-gray-500 text-sm font-bold">
+                        <p>Written By: {{ $post->user->name }}</p> 
+                        <p>{{ $post->created_at->format('F j, Y, g:i a') }}</p>
                     </div>
                 </div>
                 @endforeach

@@ -1,5 +1,10 @@
 <x-layout>
     <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md mt-6">
+        <div class="text-blue-500 text-lg font-bold flex justify-between mb-4">
+            <p>Written By: {{ $post->user->name }}</p> 
+            <p>{{ $post->created_at->format('F j, Y, g:i a') }}</p>
+        </div>
+
         <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
     
         <div class="mb-4">
@@ -37,21 +42,22 @@
                     </a>
                 </button>
 
-                {{-- @if (auth()->id() === $post->user_id) --}}
-                <button>
-                    <a href="{{ route('post.edit',  $post->id) }}" class="inline-block bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
-                        Edit Post
-                    </a>
-                </button>
-
-                <form method="POST" action="{{route('post.delete', $post->id)}}">
-                    @csrf
-                    @method('delete')
-                    <button type="submit"
-                        class="cursor-pointer px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition w-full">
-                        Delete Post
+                @if(auth()->user()->role === 'admin' || (auth()->user()->role === 'author' && auth()->user()->id === $post->user_id))
+                    <button>
+                        <a href="{{ route('post.edit',  $post->id) }}" class="inline-block bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+                            Edit Post
+                        </a>
                     </button>
-                </form>
+
+                    <form method="POST" action="{{route('post.delete', $post->id)}}">
+                        @csrf
+                        @method('delete')
+                        <button type="submit"
+                            class="cursor-pointer px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition w-full">
+                            Delete Post
+                        </button>
+                    </form>
+                @endif
             </div>
         </div>
 
