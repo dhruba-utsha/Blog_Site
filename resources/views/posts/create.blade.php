@@ -1,6 +1,6 @@
 <x-layout>
     <div class="bg-gray-100 min-h-screen">
-        <div class="container mx-auto mt-10">
+        <div class="container mx-auto pt-6">
             <h1 class="text-3xl font-semibold text-gray-800 mb-6">Create a New Post</h1>
 
             <form method="POST" action="{{route('post.store')}}" enctype="multipart/form-data">
@@ -40,7 +40,7 @@
                     </button>
 
                     <a href="/dashboard"
-                    class="text-center bg-gray-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-gray-600 transition">
+                    class=" bg-gray-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-gray-600 transition">
                         Cancel
                     </a>
                 </div>

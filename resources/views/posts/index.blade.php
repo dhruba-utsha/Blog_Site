@@ -1,8 +1,8 @@
 <x-layout>
-    <div class="max-w-6xl mx-auto py-10">
+    <div class="container mx-auto py-6">
         <h1 class="text-4xl font-bold text-gray-800 mb-6 text-center">All Posts</h1>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-2 gap-6">
             @foreach ($posts as $post)
             <a href="{{ route('post.show', $post->id) }}">
                 <div class="bg-white rounded-lg shadow-md p-4">

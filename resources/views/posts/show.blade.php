@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md mt-10">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md mt-6">
         <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
     
         <div class="mb-4">
@@ -36,21 +36,23 @@
                         Back to Posts
                     </a>
                 </button>
-    
-                <button>
-                    <a href="{{ route('post.edit',  $post->id) }}" class="inline-block bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
-                        Edit Post
-                    </a>
-                </button>
-        
-                <form method="POST" action="{{route('post.delete', $post->id)}}">
-                    @csrf
-                    @method('delete')
-                    <button type="submit"
-                        class="cursor-pointer px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition w-full">
-                        Delete Post
+
+                @if (auth()->id() === $post->user_id)
+                    <button>
+                        <a href="{{ route('post.edit',  $post->id) }}" class="inline-block bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+                            Edit Post
+                        </a>
                     </button>
-                </form>
+            
+                    <form method="POST" action="{{route('post.delete', $post->id)}}">
+                        @csrf
+                        @method('delete')
+                        <button type="submit"
+                            class="cursor-pointer px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition w-full">
+                            Delete Post
+                        </button>
+                    </form>
+                @endif
             </div>
         </div>
 
@@ -73,7 +75,7 @@
             <h3 class="text-2xl font-semibold mt-6">All Comments</h3>
             <div class="mt-4">
                 @foreach ($post->comments as $comment)
-                    <div class="border-b py-6 px-4 bg-blue-200 rounded-lg mb-4">
+                    <div class="border-b p-4 bg-blue-200 rounded-lg mb-4">
                         <p class="text-gray-800 text-xl font-semibold">
                             <strong>{{ $comment->user->name }}</strong>
                             <span class="text-sm text-gray-600 ml-2">{{ $comment->created_at->diffForHumans() }}</span>

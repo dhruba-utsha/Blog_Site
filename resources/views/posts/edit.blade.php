@@ -36,10 +36,15 @@
                 <p class="text-gray-500 text-sm mt-1">Leave empty if you don't want to change the image.</p>
             </div>
     
-            <div class="flex justify-center mb-10">
-                <button type="submit" class=" cursor-pointer px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition">
+            <div class="flex items-center gap-x-4 mb-10">
+                <button type="submit" class="cursor-pointer px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition">
                     Update Post
                 </button>
+
+                <button><a href="{{route('post.show', $post->id)}}"
+                    class=" bg-gray-500 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-gray-600 transition">
+                        Cancel
+                </a></button>
             </div>
         </form>
     </div>

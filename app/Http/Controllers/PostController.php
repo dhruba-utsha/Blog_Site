@@ -52,6 +52,10 @@ class PostController extends Controller
 
     public function postEdit(Post $post)
     {
+        if (Auth::id() !== $post->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $categories = Category::all();
         return view('posts.edit', [
             'post' => $post,
@@ -62,6 +66,10 @@ class PostController extends Controller
 
     public function postUpdate(Request $request, Post $post)
     {
+        if (Auth::id() !== $post->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $request->validate([
             'title' => 'required',
             'content' => 'required',
@@ -86,6 +94,10 @@ class PostController extends Controller
 
     public function delete(Post $post)
     {
+        if (Auth::id() !== $post->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+        
         $post->delete();
         return redirect(route('posts.index'));
     }

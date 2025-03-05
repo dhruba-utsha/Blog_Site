@@ -9,7 +9,7 @@
 <body>
     <header>
         <nav class="bg-blue-600 text-white shadow-md">
-            <div class="container mx-auto flex justify-between items-center py-4 px-6">
+            <div class="container mx-auto flex justify-between items-center py-4">
                 
                 <div><a href="/" class="text-2xl font-bold">InnovateBlog</a></div>
         
