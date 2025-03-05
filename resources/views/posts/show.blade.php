@@ -37,22 +37,21 @@
                     </a>
                 </button>
 
-                @if (auth()->id() === $post->user_id)
-                    <button>
-                        <a href="{{ route('post.edit',  $post->id) }}" class="inline-block bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
-                            Edit Post
-                        </a>
+                {{-- @if (auth()->id() === $post->user_id) --}}
+                <button>
+                    <a href="{{ route('post.edit',  $post->id) }}" class="inline-block bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+                        Edit Post
+                    </a>
+                </button>
+
+                <form method="POST" action="{{route('post.delete', $post->id)}}">
+                    @csrf
+                    @method('delete')
+                    <button type="submit"
+                        class="cursor-pointer px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition w-full">
+                        Delete Post
                     </button>
-            
-                    <form method="POST" action="{{route('post.delete', $post->id)}}">
-                        @csrf
-                        @method('delete')
-                        <button type="submit"
-                            class="cursor-pointer px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition w-full">
-                            Delete Post
-                        </button>
-                    </form>
-                @endif
+                </form>
             </div>
         </div>
 
