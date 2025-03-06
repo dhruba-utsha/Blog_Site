@@ -49,14 +49,17 @@
                         </a>
                     </button>
 
-                    <form method="POST" action="{{route('post.delete', $post->id)}}">
-                        @csrf
-                        @method('delete')
-                        <button type="submit"
-                            class="cursor-pointer px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition w-full">
+                    <div>
+                        <button type="button" class="cursor-pointer px-4 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition w-full delete-item" 
+                            data-type="post" data-id="{{ $post->id }}">
                             Delete Post
                         </button>
-                    </form>
+
+                        <form id="delete-form-post-{{ $post->id }}" action="{{ route('post.delete', $post->id) }}" method="POST" class="hidden">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    </div>
                 @endif
             </div>
         </div>
@@ -76,6 +79,7 @@
                 </div>
             </form>
         </div>
+        
         <div>
             <h3 class="text-2xl font-semibold mt-6">All Comments <span class="text-orange-600">({{ $post->comments->count() }})</span></h3>
             <div class="mt-4">
@@ -91,12 +95,14 @@
 
                         <div>
                             @if (Auth::id() === $comment->user_id || Auth::id() === $comment->post->user_id)
-                                <form action="{{ route('comment.delete', ['post' => $post->id, 'comment' => $comment->id]) }}" method="POST" class="mt-2">
+                                <button type="button" class="cursor-pointer px-4 py-2 text-red-600 font-semibold rounded-lg shadow-md hover:bg-red-600 hover:text-white transition delete-item" 
+                                    data-type="comment" data-id="{{ $comment->id }}">
+                                    Delete
+                                </button>
+                        
+                                <form id="delete-form-comment-{{ $comment->id }}" action="{{ route('comment.delete', ['post' => $post->id, 'comment' => $comment->id]) }}" method="POST" class="hidden">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="cursor-pointer px-4 py-2 text-red-600 font-semibold rounded-lg shadow-md hover:bg-red-600 hover:text-white transition">
-                                        Delete
-                                    </button>
                                 </form>
                             @endif
                         </div>
@@ -107,6 +113,7 @@
     </div>
 </x-layout>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function toggleLike(postId) {
         fetch(`/posts/${postId}/like`, {
@@ -127,4 +134,28 @@
         })
         .catch(error => console.error('Error:', error));
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".delete-item").forEach(button => {
+            button.addEventListener("click", function () {
+                let itemType = this.getAttribute("data-type");
+                let itemId = this.getAttribute("data-id");
+                let formId = `delete-form-${itemType}-${itemId}`;
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: `Once deleted, this ${itemType} cannot be recovered!`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById(formId).submit();
+                    }
+                });
+            });
+        });
+    });
 </script>

@@ -31,10 +31,10 @@ class CommentController extends Controller
     {
         if (Auth::id() === $comment->user_id || Auth::id() === $post->user_id) {
             $comment->delete();
-            return back()->with('success', 'Comment deleted successfully!');
+            return back();
         }
 
-        return back()->with('error', 'Unauthorized to delete this comment.');
+        return back();
     }
 
 }
