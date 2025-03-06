@@ -34,7 +34,7 @@
             @endauth
         </div>
 
-        <div class="grid md:grid-cols-2 gap-6">
+        {{-- <div class="grid md:grid-cols-2 gap-6">
             @foreach ($posts as $post)
             <a href="{{ route('post.show', $post->id) }}">
                 <div class="bg-white rounded-lg shadow-md p-4">
@@ -58,6 +58,7 @@
                 @endforeach
             </a>
         </div>
-    </div>
+    </div> --}}
+    @include('components.postList', ['posts' => $posts])
 </body>
 </html>

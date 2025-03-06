@@ -16,7 +16,8 @@ class RoleMiddleware
 
         if ($request->user()->role === 'author') {
 
-            if ($request->is('create/post') || ($request->isMethod('POST') && $request->is('post/store'))) {
+            if ($request->is('create/post') || $request->is('myPost/post') ||
+             ($request->isMethod('POST') && $request->is('post/store'))) {
                 return $next($request);
             }
 
