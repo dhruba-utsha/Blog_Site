@@ -70,22 +70,36 @@
                 </div>
                 
                 <div class="mb-6">
-                    <button type="submit" class="cursor-pointer px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition">
+                    <button id="comment-btn" type="submit" class="cursor-pointer px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition">
                         Comment
                     </button>
                 </div>
             </form>
         </div>
         <div>
-            <h3 class="text-2xl font-semibold mt-6">All Comments</h3>
+            <h3 class="text-2xl font-semibold mt-6">All Comments <span class="text-orange-600">({{ $post->comments->count() }})</span></h3>
             <div class="mt-4">
                 @foreach ($post->comments as $comment)
-                    <div class="border-b p-4 bg-blue-200 rounded-lg mb-4">
-                        <p class="text-gray-800 text-xl font-semibold">
-                            <strong>{{ $comment->user->name }}</strong>
-                            <span class="text-sm text-gray-600 ml-2">{{ $comment->created_at->diffForHumans() }}</span>
-                        </p>
-                        <p class="mt-2 text-gray-700">{{ $comment->body }}</p>
+                    <div class="flex justify-between border-b bg-blue-200 p-4 rounded-lg mb-4">
+                        <div class="">
+                            <p class="text-gray-800 text-xl font-semibold">
+                                <strong>{{ $comment->user->name }}</strong>
+                                <span class="text-sm text-gray-600 ml-2">{{ $comment->created_at->diffForHumans() }}</span>
+                            </p>
+                            <p class="mt-2 text-gray-700">{{ $comment->body }}</p>
+                        </div>
+
+                        <div>
+                            @if (Auth::id() === $comment->user_id || Auth::id() === $comment->post->user_id)
+                                <form action="{{ route('comment.delete', ['post' => $post->id, 'comment' => $comment->id]) }}" method="POST" class="mt-2">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="cursor-pointer px-4 py-2 text-red-600 font-semibold rounded-lg shadow-md hover:bg-red-600 hover:text-white transition">
+                                        Delete
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
                     </div>
                 @endforeach
             </div>

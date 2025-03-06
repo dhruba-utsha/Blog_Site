@@ -29,10 +29,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/post/store', [PostController::class, 'postStore'])->name('post.store');
         Route::get('/post/{post}/edit', [PostController::class, 'postEdit'])->name('post.edit');
         Route::put('/post/{post}/update', [PostController::class, 'postUpdate'])->name('post.update');
-        Route::delete('/post/{post}/delete', [PostController::class, 'delete'])->name('post.delete');
+        Route::delete('/post/{post}/delete', [PostController::class, 'deletePost'])->name('post.delete');
     });
 
     Route::post('/post/{post}/comment', [CommentController::class, 'commentStore'])->name('comment.store');
+    Route::delete('/post/{post}/comment/{comment}', [CommentController::class, 'deleteComment'])->name('comment.delete');
     Route::post('/posts/{post}/like', [LikeController::class, 'toggleLike'])->name('post.like');
 });
 

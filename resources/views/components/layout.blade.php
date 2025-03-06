@@ -13,7 +13,7 @@
                 
                 <div><a href="{{ route('home') }}" class="text-2xl font-bold">InnovateBlog</a></div>
         
-                <div class="flex items-center space-x-6">
+                <div class="flex items-center space-x-5 font-semibold">
                     <a href="{{ route('home') }}" class="hover:text-gray-200">Dashboard</a>
                     <a href="{{ route('posts.index') }}" class="hover:text-gray-200">All Posts</a>
 
@@ -25,9 +25,9 @@
                         <a href="{{ route('post.myPost') }}" class="hover:text-gray-200">My Posts</a>
                     @endif
 
-                    <a href="{{ route('logout') }}" class="hover:text-gray-200">LogOut</a>
                     <a href="{{ route('home') }}" class="bg-orange-400 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-200">
                         {{ auth()->user()->name }} ({{ auth()->user()->role }})</a>
+                    <a href="{{ route('logout') }}" class="bg-red-600 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-200">LogOut</a>
                 </div>
             </div>
         </nav>
