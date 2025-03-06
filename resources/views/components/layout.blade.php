@@ -21,19 +21,26 @@
                         <a href="{{ route('post.create') }}" class="">Create Post</a>
                     @endif
 
-                    @if(auth()->user()->role === 'admin' || auth()->user()->role === 'author')
-                        <a href="{{ route('post.myPost') }}" class="hover:text-gray-200">My Posts</a>
-                    @endif
-
-                    <a href="{{ route('home') }}" class="bg-orange-400 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-200">
-                        {{ auth()->user()->name }} ({{ auth()->user()->role }})</a>
-                    <a href="{{ route('logout') }}" class="bg-red-600 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-200">LogOut</a>
+                    <select id="userActions" class="bg-blue-300 px-3 py-2 uppercase rounded-lg cursor-pointer text-black font-semibold">
+                        <option selected disabled>{{ auth()->user()->name }} ({{ auth()->user()->role }})</option>
+                        @if(auth()->user()->role === 'admin' || auth()->user()->role === 'author')
+                            <option value="{{ route('post.myPost') }}">My Posts</option>
+                        @endif
+                        <option value="{{ route('logout') }}">Log Out</option>
+                    </select>
                 </div>
             </div>
         </nav>
     </header>
 
-
     {{ $slot }}
 </body>
 </html>
+
+<script>
+    document.getElementById("userActions").addEventListener('change', function() {
+        if (this.value) {
+            window.location.href = this.value;
+        }
+    });
+</script>
