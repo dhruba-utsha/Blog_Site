@@ -45,11 +45,7 @@ use App\Http\Controllers\LikeController;
 // });
 
 
-
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [UserController::class, 'landingPage'])->name('welcome');
 
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('/login', [UserController::class, 'loginPost'])->name('login.post');
@@ -69,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['role'])->group(function (){
         Route::get('/create/post', [PostController::class, 'postCreate'])->name('post.create');
+        Route::get('/myPost/post', [PostController::class, 'myPost'])->name('post.myPost');
         Route::post('/post/store', [PostController::class, 'postStore'])->name('post.store');
         Route::get('/post/{post}/edit', [PostController::class, 'postEdit'])->name('post.edit');
         Route::put('/post/{post}/update', [PostController::class, 'postUpdate'])->name('post.update');

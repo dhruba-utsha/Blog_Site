@@ -12,14 +12,16 @@ class PostController extends Controller
     function posts()
     {
         $posts = Post::all();
-        return view('posts.index', ['posts' => $posts]);
+        return view('posts.index', ['posts' => $posts, 'pageTitle' => 'All Blogs']);
     }
+
 
     public function postCreate()
     {
         $categories = Category::all();
         return view('posts.create', ['categories' => $categories]);
     }
+
 
     public function postStore(Request $request)
     {
@@ -45,9 +47,17 @@ class PostController extends Controller
         return redirect(route('posts.index'));
     }
 
+
     public function postShow(Post $post)
     {
         return view('posts.show', ['post' => $post]);
+    }
+
+    public function myPost()
+    {
+        $user_id = Auth::id();
+        $posts = Post::where('user_id', $user_id)->get();
+        return view('posts.index', ['posts' => $posts, 'pageTitle' => 'My Blogs']);
     }
 
     public function postEdit(Post $post)
@@ -84,6 +94,7 @@ class PostController extends Controller
         return redirect(route('post.show', $post->id));
     }
 
+    
     public function delete(Post $post)
     {
         $post->delete();

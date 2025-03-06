@@ -8,12 +8,19 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use  App\Models\User;
-
+use  App\Models\Post;
 
 use function Laravel\Prompts\password;
 
 class UserController extends Controller
 {
+    function landingPage()
+    {
+        $posts = Post::all();
+        return view('welcome', ['posts' => $posts]);
+    }
+
+
     function login(){
         if(Auth::check()){
             return redirect(route('home'));
@@ -21,12 +28,14 @@ class UserController extends Controller
         return view('login');
     }
 
+
     function registration(){
         if(Auth::check()){
             return redirect(route('home'));
         }
         return view('registration');
     }
+
 
     function loginPost(Request $request){
         $credentials = $request->validate([
@@ -39,6 +48,7 @@ class UserController extends Controller
         }
         return redirect(route('login'))->with("error", "Login details are not valid");
     }
+
 
     function registrationPost(Request $request){
         $data = $request->validate([
@@ -56,6 +66,7 @@ class UserController extends Controller
         }
         return redirect(route('registration'))->with("error", "Registration details are not valid");
     }
+
 
     function logout(){
         Session::flush();

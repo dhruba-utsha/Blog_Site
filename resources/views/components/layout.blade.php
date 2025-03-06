@@ -16,9 +16,15 @@
                 <div class="flex items-center space-x-6">
                     <a href="{{ route('home') }}" class="hover:text-gray-200">Dashboard</a>
                     <a href="{{ route('posts.index') }}" class="hover:text-gray-200">All Posts</a>
+
                     @if(auth()->user()->role !== 'user')
-                    <a href="{{ route('post.create') }}" class="hover:text-gray-200">Create Post</a>
+                        <a href="{{ route('post.create') }}" class="">Create Post</a>
                     @endif
+
+                    @if(auth()->user()->role === 'admin' || auth()->user()->role === 'author')
+                        <a href="{{ route('post.myPost') }}" class="hover:text-gray-200">My Posts</a>
+                    @endif
+
                     <a href="{{ route('logout') }}" class="hover:text-gray-200">LogOut</a>
                     <a href="{{ route('home') }}" class="bg-orange-400 px-3 py-2 rounded-lg cursor-pointer hover:text-gray-200">
                         {{ auth()->user()->name }} ({{ auth()->user()->role }})</a>
