@@ -16,14 +16,14 @@ class PostController extends Controller
     }
 
 
-    public function postCreate()
+    function postCreate()
     {
         $categories = Category::all();
         return view('posts.create', ['categories' => $categories]);
     }
 
 
-    public function postStore(Request $request)
+    function postStore(Request $request)
     {
         $request->validate([
             'title' => 'required',
@@ -48,19 +48,19 @@ class PostController extends Controller
     }
 
 
-    public function postShow(Post $post)
+    function postShow(Post $post)
     {
         return view('posts.show', ['post' => $post]);
     }
 
-    public function myPost()
+    function myPost()
     {
         $user_id = Auth::id();
         $posts = Post::where('user_id', $user_id)->get();
         return view('posts.index', ['posts' => $posts, 'pageTitle' => 'My Blogs']);
     }
 
-    public function postEdit(Post $post)
+    function postEdit(Post $post)
     {
         $categories = Category::all();
         return view('posts.edit', [
@@ -70,7 +70,7 @@ class PostController extends Controller
     }
 
 
-    public function postUpdate(Request $request, Post $post)
+    function postUpdate(Request $request, Post $post)
     {
         $request->validate([
             'title' => 'required',
@@ -95,7 +95,7 @@ class PostController extends Controller
     }
 
     
-    public function deletePost(Post $post)
+    function deletePost(Post $post)
     {
         $post->delete();
         return redirect(route('posts.index'));

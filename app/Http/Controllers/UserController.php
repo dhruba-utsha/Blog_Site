@@ -62,6 +62,7 @@ class UserController extends Controller
         $user = User::create($data);
 
         if($user){
+            Auth::login($user);
             return redirect(route('home'));
         }
         return redirect(route('registration'))->with("error", "Registration details are not valid");

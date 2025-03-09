@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
@@ -30,6 +31,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/post/{post}/edit', [PostController::class, 'postEdit'])->name('post.edit');
         Route::put('/post/{post}/update', [PostController::class, 'postUpdate'])->name('post.update');
         Route::delete('/post/{post}/delete', [PostController::class, 'deletePost'])->name('post.delete');
+
+        
+        Route::get('/admin/panel', [AdminController::class, 'adminPanel'])->name('admin.panel');
+        
+        Route::get('/user/{user}/edit', [AdminController::class, 'userEdit'])->name('admin.user.edit');
+        Route::put('/user/{user}/update', [AdminController::class, 'userUpdate'])->name('admin.user.update');
+        Route::delete('/user/{user}/delete', [AdminController::class, 'deleteUser'])->name('admin.user.delete');
     });
 
     Route::post('/post/{post}/comment', [CommentController::class, 'commentStore'])->name('comment.store');

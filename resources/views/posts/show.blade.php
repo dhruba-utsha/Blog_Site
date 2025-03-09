@@ -2,7 +2,7 @@
     <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md mt-6">
         <div class="text-blue-500 text-lg font-bold flex justify-between mb-4">
             <p>Written By: {{ $post->user->name }}</p> 
-            <p>{{ $post->created_at->format('F j, Y, g:i a') }}</p>
+            <p>{{ $post->created_at->format('F j, Y') }}</p>
         </div>
 
         <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
