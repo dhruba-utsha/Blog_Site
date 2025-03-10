@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use  App\Models\User;
 use  App\Models\Post;
+use  App\Models\Category;
 
 use function Laravel\Prompts\password;
 
@@ -18,6 +19,15 @@ class UserController extends Controller
     {
         $posts = Post::all();
         return view('welcome', ['posts' => $posts]);
+    }
+
+    function dashboard()
+    {
+        return view('dashboard', [
+            'totalUsers' => User::count(),
+            'totalCategories' => Category::count(),
+            'totalPosts' => Post::count(),
+        ]);
     }
 
 

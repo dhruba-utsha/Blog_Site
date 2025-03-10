@@ -2,7 +2,7 @@
     <div class="max-w-lg mx-auto mt-12 bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-2xl font-bold mb-4 text-center">Edit User</h2>
 
-        <form action="{{ route('admin.user.update', $user->id) }}" method="POST">
+        <form action="{{ route('admin.userUpdate', $user->id) }}" method="POST">
             @csrf
             @method('PUT')
 

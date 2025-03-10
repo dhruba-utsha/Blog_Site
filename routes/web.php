@@ -17,9 +17,7 @@ Route::post('/registration', [UserController::class, 'registrationPost'])->name(
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('home');
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('home');
 
     Route::get('/post', [PostController::class, 'posts'])->name('posts.index');
     Route::get('/post/{post}', [PostController::class, 'postShow'])->name('post.show');
@@ -34,10 +32,17 @@ Route::middleware(['auth'])->group(function () {
 
         
         Route::get('/admin/panel', [AdminController::class, 'adminPanel'])->name('admin.panel');
+
+        Route::get('/user/{user}/edit', [AdminController::class, 'userEdit'])->name('admin.userEdit');
+        Route::put('/user/{user}/update', [AdminController::class, 'userUpdate'])->name('admin.userUpdate');
+        Route::delete('/user/{user}/delete', [AdminController::class, 'deleteUser'])->name('admin.userDelete');
+
+        Route::get('/category/create', [AdminController::class, 'createCategory'])->name('admin.categoryCreate');
+        Route::post('/category/store', [AdminController::class, 'storeCategory'])->name('admin.categoryStore');
         
-        Route::get('/user/{user}/edit', [AdminController::class, 'userEdit'])->name('admin.user.edit');
-        Route::put('/user/{user}/update', [AdminController::class, 'userUpdate'])->name('admin.user.update');
-        Route::delete('/user/{user}/delete', [AdminController::class, 'deleteUser'])->name('admin.user.delete');
+        Route::get('/category/{category}/edit', [AdminController::class, 'categoryEdit'])->name('admin.categoryEdit');
+        Route::put('/category/{category}/update', [AdminController::class, 'categoryUpdate'])->name('admin.categoryUpdate');
+        Route::delete('/category/{category}/delete', [AdminController::class, 'deleteCategory'])->name('admin.categoryDelete');
     });
 
     Route::post('/post/{post}/comment', [CommentController::class, 'commentStore'])->name('comment.store');

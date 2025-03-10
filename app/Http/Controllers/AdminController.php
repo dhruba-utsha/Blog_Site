@@ -17,8 +17,7 @@ class AdminController extends Controller
 
     function userEdit(User $user)
     {
-        $categories = Category::all();
-        return view('admin.userEdit', ['user' => $user, 'categories' => $categories]);
+        return view('admin.userEdit', ['user' => $user]);
     }
 
 
@@ -39,6 +38,52 @@ class AdminController extends Controller
     function deleteUser(User $user)
     {
         $user->delete();
+        return redirect(route('admin.panel'));
+    }
+
+    function createCategory()
+    {
+        return view('admin.createCategory');
+    }
+
+    function storeCategory(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        Category::create([
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
+
+        return redirect(route('admin.panel'));
+    }
+
+    function categoryEdit(Category $category)
+    {
+        return view('admin.categoryEdit', ['category' => $category]);
+    }
+
+    function categoryUpdate(Request $request, Category $category)
+    {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $category->update([
+            'name' => $request->name,
+            'description' => $request->description
+        ]);
+
+        return redirect(route('admin.panel'));
+    }
+
+    function deleteCategory(Category $category)
+    {
+        $category->delete();
         return redirect(route('admin.panel'));
     }
 }

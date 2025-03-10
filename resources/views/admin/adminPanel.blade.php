@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container mx-auto mt-10">
+    <div class="container mx-auto my-10">
         <h2 class="text-3xl font-bold text-center">Admin Panel</h2>
 
         <div class="grid gap-8 mt-6">
@@ -22,9 +22,9 @@
                             <td class="p-3 border border-gray-300 text-center">{{ $user->email }}</td>
                             <td class="p-3 border border-gray-300 text-center">{{ $user->role }}</td>
                             <td class="p-3 border border-gray-300 flex justify-center gap-4">
-                                <a href="{{ route('admin.user.edit',  $user->id) }}" class="bg-blue-500 text-white px-3 py-1 rounded">Edit</a>
+                                <a href="{{ route('admin.userEdit',  $user->id) }}" class="bg-blue-500 text-white px-3 py-1 rounded">Edit</a>
 
-                                <form action="{{ route('admin.user.delete', $user->id) }}" method="POST">
+                                <form action="{{ route('admin.userDelete', $user->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded cursor-pointer">Delete</button>
@@ -41,7 +41,7 @@
                     <h3 class="text-xl font-bold mb-4">Manage Categories</h3>
             
                     <div>
-                        <a class="bg-green-500 text-white px-4 py-2 rounded">Create Category</a>
+                        <a href="{{route('admin.categoryCreate')}}" class="bg-green-500 text-white px-4 py-2 rounded">Create Category</a>
                     </div>
                 </div>
                 
@@ -58,9 +58,14 @@
                         <tr class="border border-gray-300">
                             <td class="p-3 border border-gray-300 text-center">{{ $category->name }}</td>
                             <td class="p-3 border border-gray-300 text-center">{{ $category->description }}</td>
-                            <td class="p-3 border border-gray-300 text-center space-x-2">
-                                <a class="bg-blue-500 text-white px-3 py-1 rounded">Edit</a>
-                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+                            <td class="p-3 border border-gray-300 flex justify-center gap-4">
+                                <a href="{{ route('admin.categoryEdit',  $category->id) }}" class="bg-blue-500 text-white px-3 py-1 rounded">Edit</a>
+
+                                <form action="{{ route('admin.categoryDelete', $category->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded cursor-pointer">Delete</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -68,7 +73,6 @@
                 </table>
             </div>
             
-
         </div>
     </div>
 </x-layout>
